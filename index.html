@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function pinGenerate(){
+            let randomNum = Math.random() * 10000;
+            let randomNumber = Math.ceil(randomNum);
+            if (randomNumber < 1000) {
+                randomNumber += 1000;
+            }
+            document.getElementById('pin-gen-input').value = randomNumber;
+        }
+
+        function insert(num) {
+            document.getElementById('text-area').value +=num;
+        }
+
+        function clean() {
+            document.getElementById('text-area').value = "";
+        }
+
+        function pinMacher() {
+          let givenNum = document.getElementById('pin-gen-input').value;
+          let submitNum = document.getElementById('text-area').value;
+          if( givenNum == submitNum){
+              document.getElementById('match').style.display = "block";
+              document.getElementById('not-match').style.display = "none";
+          }
+          else {
+              document.getElementById('not-match').style.display = "block";
+              document.getElementById('match').style.display = "none";
+              
+              let tryPermit = document.getElementById('try-permit').innerText -= 1 ;
+              if( tryPermit == 0){
+                  document.getElementById("submitBtn").disabled = true;
+              }
+          }
+        }
+
+        function back() {
+            let given = document.getElementById('text-area').value;
+            document.getElementById('text-area').value = given.substring(0,given.length -1 );
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input class="form-control" type="text" id="pin-gen-input">
+                    <button class="generate-btn" onclick="pinGenerate()">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input class="form-control" type="text" id="text-area">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button" onclick="insert(7)">7</div>
+                              <div class="button" onclick="insert(8)">8</div>
+                              <div class="button" onclick="insert(9)">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="insert(4)">4</div>
+                              <div class="button" onclick="insert(5)">5</div>
+                              <div class="button" onclick="insert(6)">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="insert(1)">1</div>
+                              <div class="button" onclick="insert(2)">2</div>
+                              <div class="button" onclick="insert(3)">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button"onclick="back()"><</div>
+                                <div class="button" onclick="insert(0)">0</div>
+                                <div class="button" onclick="clean()">C</div>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn submit-btn" id="submitBtn" onclick ="pinMacher()">Submit</button>
+                                <p class="action-left"><span id="try-permit">3</span> try left</p>
+                            </div>
+                        </div>>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p class="notify" id="not-match">❌ Pin Didn't Match, Please try again</p>
+            <p class="notify" id="match">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+</body>
+</html>
