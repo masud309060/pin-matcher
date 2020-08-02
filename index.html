@@ -27,7 +27,13 @@
         function pinMacher() {
           let givenNum = document.getElementById('pin-gen-input').value;
           let submitNum = document.getElementById('text-area').value;
-          if( givenNum == submitNum){
+          if ( givenNum == ""){
+              alert("Please, Click Generate Pin Button!");
+          }
+          else if(submitNum == "") {
+              alert("Please, Enter your pin!")
+          }
+          else if( givenNum == submitNum){
               document.getElementById('match').style.display = "block";
               document.getElementById('not-match').style.display = "none";
           }
